@@ -10,6 +10,16 @@ npm start
 
 `http://localhost:4173`에서 열 수 있습니다. 카메라 기능은 배포 환경에서 HTTPS가 필요합니다.
 
+## Firebase Hosting 배포
+
+```sh
+npm run build:firebase
+firebase serve --only hosting
+npm run deploy:firebase
+```
+
+`firebase.json`은 `dist/client`의 정적 파일만 배포합니다. `npm run deploy:firebase`를 실행하면 Firebase의 배포 전 훅이 `build:firebase`를 다시 실행하므로, 실제 배포에는 최신 CSS·이미지·모델·WASM 파일이 포함됩니다.
+
 ## 주요 기능
 
 - 촬영 화면의 35:45 프레임, 얼굴 타원, 눈높이와 실시간 밝기·얼굴 크기·중앙·수평 안내

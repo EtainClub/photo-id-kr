@@ -9,6 +9,9 @@
     "prebuild": "node scripts/prepare-public.mjs",
     "build": "vinext build",
     "postbuild": "node scripts/prepare-dist.mjs",
+    "prebuild:firebase": "node scripts/prepare-public.mjs",
+    "build:firebase": "vinext build",
+    "deploy:firebase": "firebase deploy --only hosting",
     "test": "node --test",
     "check": "node --check app.js && node --check analyzer.js && node --test"
   },
