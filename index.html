@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f5f7">
+  <meta name="description" content="한국 여권 사진을 스마트폰에서 촬영하고 규격에 맞는지 점검하세요.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <title>여권사진 준비</title>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="처음으로">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7.5 3.5h9a3 3 0 0 1 3 3v11a3 3 0 0 1-3 3h-9a3 3 0 0 1-3-3v-11a3 3 0 0 1 3-3Z"/><circle cx="12" cy="10" r="2.8"/><path d="M7.8 17c.6-2.3 2-3.5 4.2-3.5s3.6 1.2 4.2 3.5"/></svg></span>
+      <span>여권사진 준비</span>
+    </a>
+    <button class="icon-button" id="infoButton" type="button" aria-label="사진 규정 보기">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 10.7v6"/><path d="M12 7.2h.01"/></svg>
+    </button>
+  </header>
+
+  <main id="app">
+    <section class="screen home-screen is-active" id="home" aria-labelledby="homeTitle">
+      <div class="hero-copy">
+        <div class="trust-chip"><span class="status-dot"></span>사진은 기기 안에서만 처리돼요</div>
+        <h1 id="homeTitle">까다로운 여권사진,<br><span>찍기 전에 맞춰보세요.</span></h1>
+        <p>촬영 가이드부터 규격 점검, 온라인 제출용 파일까지 한 번에 준비해요.</p>
+      </div>
+
+      <div class="passport-stage" aria-hidden="true">
+        <div class="passport-card">
+          <div class="sample-head"><div class="sample-hair"></div><div class="sample-ear left"></div><div class="sample-ear right"></div><div class="sample-face"><i></i><i></i><b></b></div></div>
+          <div class="sample-shoulders"></div>
+          <div class="guide-line top"></div><div class="guide-line bottom"></div>
+          <span class="guide-label">머리 길이 3.2–3.6cm</span>
+        </div>
+        <div class="pass-bubble"><svg viewBox="0 0 24 24"><path d="m7 12.5 3.2 3.2L17.5 8.5"/></svg>규격 안에 있어요</div>
+      </div>
+
+      <div class="primary-actions">
+        <button class="button primary large" id="startCamera" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8.5A2.5 2.5 0 0 1 6.5 6h2l1.2-1.5h4.6L15.5 6h2A2.5 2.5 0 0 1 20 8.5v8a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 16.5Z"/><circle cx="12" cy="12.5" r="3.5"/></svg>
+          사진 찍기
+        </button>
+        <button class="button secondary large" id="pickPhoto" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="3"/><circle cx="9" cy="9.5" r="1.5"/><path d="m5.5 17 4.2-4.2 3 2.8 2.4-2.2 3.4 3.6"/></svg>
+          앨범에서 선택
+        </button>
+        <input id="fileInput" type="file" accept="image/jpeg,image/png,image/heic,image/heif" hidden>
+      </div>
+
+      <div class="steps-card">
+        <div><span>1</span><strong>촬영</strong><small>화면 안내에 맞추기</small></div>
+        <i></i>
+        <div><span>2</span><strong>점검</strong><small>반려 요인 확인하기</small></div>
+        <i></i>
+        <div><span>3</span><strong>저장</strong><small>413 × 531 파일 받기</small></div>
+      </div>
+
+      <button class="text-link" id="openRules" type="button">촬영 전에 꼭 확인할 7가지 <svg viewBox="0 0 20 20"><path d="m8 5 5 5-5 5"/></svg></button>
+    </section>
+
+    <section class="screen editor-screen" id="editor" aria-labelledby="editorTitle" hidden>
+      <div class="screen-heading">
+        <button class="back-button" id="editorBack" type="button" aria-label="이전 화면"><svg viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg></button>
+        <div><small>2단계 · 사진 맞추기</small><h2 id="editorTitle">얼굴 위치를 맞춰주세요</h2></div>
+      </div>
+
+      <div class="editor-layout">
+        <div>
+          <div class="crop-frame" id="cropFrame">
+            <canvas id="previewCanvas" width="700" height="900"></canvas>
+            <div class="crop-guides" aria-hidden="true">
+              <div class="head-oval"></div>
+              <div class="center-line"></div>
+              <span class="top-label">정수리</span><span class="chin-label">턱</span>
+            </div>
+            <div class="analysis-overlay" id="analysisOverlay"><div class="spinner"></div><span>사진을 꼼꼼히 확인하고 있어요</span></div>
+          </div>
+          <p class="gesture-hint"><svg viewBox="0 0 24 24"><path d="M8 11V7.5a1.5 1.5 0 0 1 3 0V11 6.5a1.5 1.5 0 0 1 3 0V11 8a1.5 1.5 0 0 1 3 0v6.3c0 4-2.6 6.2-6.2 6.2-2.6 0-4.2-1.4-5.5-3.3L3.8 15a1.5 1.5 0 0 1 2.4-1.8L8 15"/></svg>사진을 움직이거나 두 손가락으로 확대할 수 있어요</p>
+        </div>
+
+        <div class="editor-panel">
+          <div class="control-card">
+            <div class="control-row"><label for="zoomRange">사진 크기</label><button id="resetCrop" type="button">자동 맞춤</button></div>
+            <input id="zoomRange" type="range" min="1" max="3" value="1" step="0.01" aria-label="사진 확대 비율">
+            <div class="range-labels"><span>작게</span><span>크게</span></div>
+          </div>
+          <div class="notice-card"><svg viewBox="0 0 24 24"><path d="M12 3.5 21 20H3Z"/><path d="M12 9v5"/><path d="M12 17h.01"/></svg><p><strong>얼굴이나 배경은 보정하지 않아요.</strong>외교부 규정상 인위적인 배경 제거, 얼굴 변형, AI 편집 사진은 사용할 수 없어요.</p></div>
+          <button class="button primary large" id="analyzeButton" type="button">이 위치로 규격 확인</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen result-screen" id="result" aria-labelledby="resultTitle" hidden>
+      <div class="screen-heading">
+        <button class="back-button" id="resultBack" type="button" aria-label="사진 맞추기로 돌아가기"><svg viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg></button>
+        <div><small>3단계 · 규격 점검</small><h2 id="resultTitle">사진 점검 결과</h2></div>
+      </div>
+
+      <div class="result-layout">
+        <div class="result-preview-wrap">
+          <canvas id="resultCanvas" width="413" height="531"></canvas>
+          <div class="result-stamp" id="resultStamp"></div>
+        </div>
+        <div class="result-content">
+          <div class="score-card" id="scoreCard">
+            <div class="score-ring" id="scoreRing"><span id="scoreNumber">0</span><small>점</small></div>
+            <div><span class="eyebrow">기기 자동 점검</span><h2 id="scoreTitle">확인 중이에요</h2><p id="scoreSummary">사진의 밝기와 배경, 얼굴 위치를 확인합니다.</p></div>
+          </div>
+
+          <div class="checks-section">
+            <div class="section-title"><h3>자동 점검</h3><span>사진 분석 기준</span></div>
+            <div class="check-list" id="autoChecks"></div>
+          </div>
+
+          <div class="checks-section self-checks">
+            <div class="section-title"><div><h3>마지막으로 직접 확인해 주세요</h3><p>사진만으로 정확히 판단하기 어려운 항목이에요.</p></div><span id="selfCount">0/5</span></div>
+            <label class="check-toggle"><input type="checkbox" value="recent"><span class="toggle-box"><svg viewBox="0 0 20 20"><path d="m5 10.5 3 3L15 7"/></svg></span><span><strong>6개월 이내에 찍은 사진이에요</strong><small>현재 모습을 그대로 보여야 해요</small></span></label>
+            <label class="check-toggle"><input type="checkbox" value="expression"><span class="toggle-box"><svg viewBox="0 0 20 20"><path d="m5 10.5 3 3L15 7"/></svg></span><span><strong>표정이 규정에 맞아요</strong><small>입을 다문 무표정이어야 해요. 36개월 이하 영유아는 입을 조금 벌려도 가능해요</small></span></label>
+            <label class="check-toggle"><input type="checkbox" value="eyes"><span class="toggle-box"><svg viewBox="0 0 20 20"><path d="m5 10.5 3 3L15 7"/></svg></span><span><strong>두 눈이 선명하고 정면을 봐요</strong><small>렌즈·안경 반사가 눈을 가리지 않아야 해요</small></span></label>
+            <label class="check-toggle"><input type="checkbox" value="items"><span class="toggle-box"><svg viewBox="0 0 20 20"><path d="m5 10.5 3 3L15 7"/></svg></span><span><strong>머리 덮개·장신구가 규정에 맞아요</strong><small>모자·이어폰은 빼야 해요. 일상 종교 의상은 얼굴 전체가 보이면 가능해요</small></span></label>
+            <label class="check-toggle"><input type="checkbox" value="objects"><span class="toggle-box"><svg viewBox="0 0 20 20"><path d="m5 10.5 3 3L15 7"/></svg></span><span><strong>다른 사람이나 사물이 보이지 않아요</strong><small>영유아 사진에도 보호자나 장난감이 나오면 안 돼요</small></span></label>
+          </div>
+
+          <div class="final-actions">
+            <button class="button primary large" id="downloadButton" type="button" disabled><svg viewBox="0 0 24 24"><path d="M12 4v11"/><path d="m7.5 11 4.5 4.5 4.5-4.5"/><path d="M5 20h14"/></svg>온라인 제출용 JPG 저장</button>
+            <a class="button secondary official-check" href="https://www.passport.go.kr/home/kor/onlinePhotoVerify/index.do?menuPos=33" target="_blank" rel="noreferrer"><svg viewBox="0 0 24 24"><path d="M12 3.5 19 6v5.5c0 4.2-2.6 7.3-7 9-4.4-1.7-7-4.8-7-9V6Z"/><path d="m8.5 12 2.2 2.2 4.8-4.8"/></svg>외교부에서 최종 검증</a>
+            <button class="button secondary" id="retryButton" type="button">다시 촬영하기</button>
+            <p>자동 점검 결과는 발급을 보장하지 않아요. 최종 제출 전 외교부 검증을 권장해요.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="camera-view" id="cameraView" hidden>
+    <video id="cameraVideo" playsinline muted></video>
+    <canvas id="cameraSampler" width="32" height="32" hidden></canvas>
+    <div class="camera-shade"></div>
+    <div class="camera-guide"><div class="camera-head-oval"></div><div class="eye-line"></div></div>
+    <div class="camera-top">
+      <button id="closeCamera" type="button" aria-label="카메라 닫기"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+      <div class="camera-status" id="cameraStatus" role="status" aria-live="polite"><span></span>얼굴을 타원 안에 맞춰주세요</div>
+      <button id="flipCamera" type="button" aria-label="카메라 전환"><svg viewBox="0 0 24 24"><path d="M20 8a8 8 0 0 0-13.5-2L4 8.5"/><path d="M4 4v4.5h4.5"/><path d="M4 16a8 8 0 0 0 13.5 2l2.5-2.5"/><path d="M20 20v-4.5h-4.5"/></svg></button>
+    </div>
+    <div class="camera-tip" id="cameraTip"><strong>창문을 바라보세요</strong><span>얼굴 양쪽에 빛이 고르게 닿으면 좋아요</span></div>
+    <div class="camera-bottom">
+      <button class="gallery-mini" id="cameraGallery" type="button" aria-label="앨범에서 선택"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="m6 17 4-4 3 3 2.5-2.5L18 16"/></svg></button>
+      <button class="shutter" id="captureButton" type="button" aria-label="사진 촬영"><span></span></button>
+      <div class="camera-spacer"></div>
+    </div>
+  </div>
+
+  <dialog class="sheet" id="rulesDialog">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header"><div><small>외교부 기준</small><h2>촬영 전에 확인하세요</h2></div><button class="sheet-close" type="button" aria-label="닫기"><svg viewBox="0 0 24 24"><path d="m7 7 10 10M17 7 7 17"/></svg></button></div>
+    <ol class="rules-list">
+      <li><span>1</span><div><strong>흰색 벽에서 한 걸음 떨어지기</strong><p>배경에 그림자나 무늬, 다른 물건이 없어야 해요.</p></div></li>
+      <li><span>2</span><div><strong>창문을 정면으로 바라보기</strong><p>얼굴과 배경에 반사나 짙은 그림자가 생기지 않게 해요.</p></div></li>
+      <li><span>3</span><div><strong>카메라는 눈높이에 두기</strong><p>고개와 어깨를 돌리거나 앞뒤로 기울이지 않아요.</p></div></li>
+      <li><span>4</span><div><strong>입을 다문 채 무표정 짓기</strong><p>치아를 보이거나 웃고, 눈썹을 올리면 안 돼요.</p></div></li>
+      <li><span>5</span><div><strong>눈과 얼굴 윤곽 모두 드러내기</strong><p>머리카락이 눈, 광대, 볼을 가리지 않게 해요.</p></div></li>
+      <li><span>6</span><div><strong>렌즈와 장신구 빼기</strong><p>컬러·서클렌즈, 모자, 이어폰은 사용할 수 없어요.</p></div></li>
+      <li><span>7</span><div><strong>휴대폰을 얼굴에서 멀리 두기</strong><p>가까이 찍으면 코와 이마가 커져 실제 모습과 달라져요.</p></div></li>
+    </ol>
+    <a class="official-link" href="https://www.passport.go.kr/home/kor/contents.do?menuPos=32" target="_blank" rel="noreferrer">외교부 여권사진 규격 원문 보기 <svg viewBox="0 0 20 20"><path d="m8 5 5 5-5 5"/></svg></a>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
