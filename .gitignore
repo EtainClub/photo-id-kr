@@ -1,4 +1,9 @@
 node_modules/
 dist/
+public/app/
+.next/
+out/
+.vinext/
+*.tsbuildinfo
 .DS_Store
 *.log
