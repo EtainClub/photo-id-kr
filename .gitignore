@@ -1,6 +1,8 @@
 node_modules/
 dist/
 public/app/
+public/og.png
+public/icon.svg
 .next/
 out/
 .vinext/

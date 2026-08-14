@@ -45,17 +45,10 @@ h1 span { color: var(--blue); }
 .hero-copy > p { margin: 22px auto 0; color: var(--secondary); font-size: clamp(17px, 2.5vw, 20px); line-height: 1.55; letter-spacing: -.015em; }
 
 .passport-stage { position: relative; width: 258px; height: 295px; margin: 42px auto 30px; perspective: 900px; }
-.passport-card { position: absolute; inset: 0 auto auto 27px; width: 204px; aspect-ratio: 35/45; overflow: hidden; border: 7px solid white; border-radius: 13px; background: linear-gradient(140deg, #fcfdff, #edf2f7); box-shadow: 0 26px 50px rgba(39, 51, 71, .18), 0 3px 8px rgba(39,51,71,.08); transform: rotateY(-3deg) rotateZ(-1.5deg); }
-.sample-head { position: absolute; z-index: 2; left: 50%; top: 16%; width: 91px; height: 133px; transform: translateX(-50%); }
-.sample-face { position: absolute; left: 12px; top: 21px; width: 67px; height: 91px; border-radius: 46% 46% 48% 48%; background: linear-gradient(100deg, #f0c9ae, #ffddc6 45%, #edc2a6); box-shadow: inset -7px -8px 15px rgba(135,77,54,.06); }
-.sample-face i { position: absolute; top: 38px; width: 6px; height: 3px; border-radius: 50%; border-top: 2px solid #4c3935; }
-.sample-face i:first-child { left: 16px; }.sample-face i:nth-child(2) { right: 16px; }
-.sample-face b { position: absolute; left: 50%; bottom: 21px; width: 17px; height: 5px; transform: translateX(-50%); border-bottom: 2px solid #b57470; border-radius: 50%; }
-.sample-hair { position: absolute; z-index: 3; left: 9px; top: 7px; width: 73px; height: 49px; border-radius: 48% 52% 40% 35%; background: #332b2b; clip-path: polygon(0 0,100% 0,100% 72%,84% 45%,72% 69%,60% 40%,48% 64%,33% 43%,17% 72%,0 79%); }
-.sample-ear { position: absolute; z-index: 0; top: 58px; width: 14px; height: 24px; border-radius: 50%; background: #eabda4; }.sample-ear.left { left: 6px; }.sample-ear.right { right: 6px; }
-.sample-shoulders { position: absolute; left: 50%; bottom: -9px; width: 144px; height: 106px; transform: translateX(-50%); border-radius: 50% 50% 0 0; background: linear-gradient(120deg, #243854, #3b587d); }
-.guide-line { position: absolute; z-index: 5; left: 9px; right: 9px; border-top: 1px dashed rgba(0,113,227,.48); }.guide-line.top { top: 39px; }.guide-line.bottom { top: 191px; }
-.guide-label { position: absolute; z-index: 6; top: 103px; right: -36px; padding: 5px 7px; color: #0568d5; background: rgba(231,243,255,.9); border-radius: 6px; font-size: 9px; font-weight: 700; transform: rotate(90deg); }
+.passport-card { position: absolute; inset: 0 auto auto 27px; width: 204px; aspect-ratio: 35/45; overflow: hidden; border: 7px solid white; border-radius: 13px; background: #f5f6f7; box-shadow: 0 26px 50px rgba(39, 51, 71, .18), 0 3px 8px rgba(39,51,71,.08); transform: rotateY(-3deg) rotateZ(-1.5deg); }
+.passport-photo { position: absolute; left: 50%; top: -18px; width: 132%; height: auto; display: block; transform: translateX(-50%); }
+.guide-line { position: absolute; z-index: 5; left: 9px; right: 9px; border-top: 1px dashed rgba(0,113,227,.58); }.guide-line.top { top: 17px; }.guide-line.bottom { top: 190px; }
+.guide-label { position: absolute; z-index: 6; top: 103px; right: -36px; padding: 5px 7px; color: #0568d5; background: rgba(231,243,255,.92); border-radius: 6px; font-size: 9px; font-weight: 700; transform: rotate(90deg); }
 .pass-bubble { position: absolute; z-index: 8; right: -13px; bottom: 18px; display: flex; align-items: center; gap: 6px; padding: 10px 13px 10px 10px; border: 1px solid rgba(255,255,255,.7); border-radius: 14px; color: #127b4c; background: rgba(255,255,255,.82); backdrop-filter: blur(16px); box-shadow: 0 10px 25px rgba(30,52,72,.13); font-size: 12px; font-weight: 700; transform: rotate(1deg); }
 .pass-bubble svg { width: 21px; height: 21px; padding: 3px; color: white; background: var(--green); border-radius: 50%; stroke-width: 2.6; }
 

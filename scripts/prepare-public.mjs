@@ -6,6 +6,9 @@ const files = ["index.html", "styles.css", "app.js", "analyzer.js", "icon.svg", 
 await rm(destination, { recursive: true, force: true });
 await mkdir(destination, { recursive: true });
 for (const file of files) await cp(file, `${destination}/${file}`);
+await cp("assets/passport-sample.jpg", `${destination}/passport-sample.jpg`);
+await cp("assets/og.png", "public/og.png");
+await cp("icon.svg", "public/icon.svg");
 await cp("models", `${destination}/models`, { recursive: true });
 await cp("vendor", `${destination}/vendor`, { recursive: true });
 
